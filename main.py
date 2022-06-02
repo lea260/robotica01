@@ -9,7 +9,7 @@ left_motor = Motor(Port.A)
 right_motor = Motor(Port.D)
 
 # Initialize the color sensor.
-line_sensor = ColorSensor(Port.S3)
+line_sensor = ColorSensor(Port.S1)
 
 # Initialize the drive base.
 robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=104)
@@ -33,7 +33,7 @@ robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=104)
 # Start following the line endlessly.
 while True:
     sensor=line_sensor.reflection()
-    screen.draw_text(x, y, text, text_color=Color.BLACK, background_color=None)
+    screen.draw_text(x, y, sensor, text_color=Color.BLACK, background_color=None)
     # Calculate the deviation from the threshold.
     #deviation = line_sensor.reflection() - threshold
 
@@ -44,4 +44,3 @@ while True:
     #robot.drive(DRIVE_SPEED, turn_rate)
 
     # You can wait for a short time or do other things in this loop.
-    wait(2000)
