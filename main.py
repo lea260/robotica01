@@ -42,7 +42,7 @@ ev3.speaker.beep(3000, 0.5)
 while True :
     # Calcula la desviacion
     sensor=line_sensor.reflection()
-    ev3.screen.draw_text(0, 0, sensor, Color.BLACK, None)
+    ev3.screen.print(sensor)
     desviacion = line_sensor.reflection() - limite
 
     # Valor de giro
