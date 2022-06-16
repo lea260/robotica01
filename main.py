@@ -1,4 +1,5 @@
 #!/usr/bin/env pybricks-micropython
+from ast import Pass
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
                                  InfraredSensor, UltrasonicSensor, GyroSensor)
@@ -16,22 +17,22 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 ev3 = EV3Brick()
 
 # Iniciar motor en puerto A y D
-left_motor = Motor(Port.A)
-right_motor = Motor(Port.D)
+izquierdo = Motor(Port.A)
+derecho = Motor(Port.D)
 
 # Inicializar el sensor de luz
-line_sensor = ColorSensor(Port.S1)
+sensor = ColorSensor(Port.S1)
 
 # Inicializar DriveBase()
-robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=170)
+robot = DriveBase(izquierdo, derecho, wheel_diameter=55.5, axle_track=170)
 
 # Declarar velocidad de motores
-DRIVE_SPEED = 100
+VELOCIDAD = 100
 
 # Calcular el limite de luz
-BLACK = 11
-WHITE = 97
-limite = (BLACK + WHITE) / 2
+NEGRO = 11
+BLANCO = 97
+umbral = (NEGRO + BLANCO) / 2
 
 # Declarar ganancias proporcional
 #PROPORTIONAL_GAIN = 1.2
@@ -39,14 +40,23 @@ limite = (BLACK + WHITE) / 2
 # Write your program here.
 ev3.speaker.beep(3000, 0.5)
 
-while True :
+while True:
     # Calcula la desviacion
-    sensor=line_sensor.reflection()
-    ev3.screen.print(sensor)
-    desviacion = line_sensor.reflection() - limite
+    valor= sensor.reflection()
+    ev3.screen.print(valor)
+    if (valor<=umbral):
+        derecho.stop()
+        izquierdo.run(VELOCIDAD)
+    else:
+        izquierdo.stop() 
+        derecho.run(VELOCIDAD)
+        
+        
+
+    # desviacion = line_sensor.reflection() - umbral
 
     # Valor de giro
-    valor_giro = desviacion
+    # valor_giro = desviacion
 
     # Robot avanza
-    robot.drive(DRIVE_SPEED, valor_giro)
+    #robot.drive(DRIVE_SPEED, valor_giro)
