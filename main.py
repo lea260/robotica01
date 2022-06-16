@@ -37,6 +37,7 @@ ev3.speaker.beep(3000, 0.5)
 
 while True:
     # Calcula la desviacion
+    # Calcula la desviacion
     valor= sensor.reflection()
     ev3.screen.print(valor)
     if (valor<=umbral):
